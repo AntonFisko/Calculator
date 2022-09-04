@@ -9,22 +9,10 @@ class CalculatorViewModel : ViewModel() {
 
     fun calculate(input: String?): Int {
         return stacky(arrayOfPolcey(Infix2(input))!!)
-        // tokinze string
-        // po
-//        val operators = operatorTokenizer.tokenize()
-//        val poolisstNotationOperators = polishNOtationTrnsformer.transform(operator)
-//        return polishNOtatioEvalutator.transform(poolisstNotationoperators)
+
     }
 
-//    sealed class CalcToken {
-//        NUmber: CalcElement
-//
-//        sealed class Operator: CalcElement {
-//            AddOperarot:Ooper
-//            AddOperarot:Ooper
-//            AddOperarot:Ooper
-//        }
-//    }
+
     private fun Infix2(input: String?): String {
         if (input == null) return ""
         val `in` = input.toCharArray()
