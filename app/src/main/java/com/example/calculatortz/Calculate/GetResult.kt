@@ -1,60 +1,45 @@
-package com.example.calculatortz
+package com.example.calculatortz.Calculate
 
 import java.util.*
 
+class GetResult {
+    fun polishEntryGetResult(tokens: List<Variables>): Int {
 
-class GetResult () {
-
-     fun rPnToInt(tokens: List<String>): Int {
-
-        val stack = Stack<String>()
+        val stack = Stack<Variables.CalcNumber>()
         var x: Int
         var y: Int
-        var result = ""
-        var choice: String
-        var value: Int
-        val p = ""
 
-        for (i in tokens.indices) {
-            choice =
-                if (tokens[i] != "+" && tokens[i] != "-" && tokens[i] != "*" && tokens[i] != "/") {
-                    stack.push(tokens[i])
-                    continue
-                } else {
-                    tokens[i]
+        for (token in tokens) {
+            when (token) {
+                is Variables.CalcNumber -> {
+                    stack.push(token)
                 }
-            when (choice) {
-                "+" -> {
-                    x = stack.pop().toInt()
-                    y = stack.pop().toInt()
-                    value = x + y
-                    result = p + value
-                    stack.push(result)
+                is Variables.ParameterType.Plus -> {
+                    x = stack.pop().value
+                    y = stack.pop().value
+                    val value = x + y
+                    stack.push(Variables.CalcNumber(value))
                 }
-                "-" -> {
-                    x = stack.pop().toInt()
-                    y = stack.pop().toInt()
-                    value = y - x
-                    result = p + value
-                    stack.push(result)
+                is Variables.ParameterType.Minus -> {
+                    x = stack.pop().value
+                    y = stack.pop().value
+                    val value = y - x
+                    stack.push(Variables.CalcNumber(value))
                 }
-                "*" -> {
-                    x = stack.pop().toInt()
-                    y = stack.pop().toInt()
-                    value = x * y
-                    result = p + value
-                    stack.push(result)
+                is Variables.ParameterType.Multiply -> {
+                    x = stack.pop().value
+                    y = stack.pop().value
+                    val value = x * y
+                    stack.push(Variables.CalcNumber(value))
                 }
-                "/" -> {
-                    x = stack.pop().toInt()
-                    y = stack.pop().toInt()
-                    value = y / x
-                    result = p + value
-                    stack.push(result)
+                is Variables.ParameterType.Divide -> {
+                    x = stack.pop().value
+                    y = stack.pop().value
+                    val value = y / x
+                    stack.push(Variables.CalcNumber(value))
                 }
-                else -> continue
             }
         }
-        return stack.pop().toInt()
+        return stack.pop().value
     }
 }

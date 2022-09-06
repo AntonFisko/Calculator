@@ -26,12 +26,12 @@ class CalculatorTest(
         fun data(): Collection<Array<Any?>> {
             return listOf(
                 arrayOf("", null),
-                arrayOf("1", 2),
+                arrayOf("1", 1),
                 arrayOf("1+", null),
                 arrayOf("1+1", 2),
                 arrayOf("2+2*2", 6),
                 arrayOf("2*2+8", 12),
-                arrayOf("865*358/65-653+644/56",4100),
+                arrayOf("865*358/65-653+644/56", 4100),
                 arrayOf("252/6*93+65*65", 8131)
             )
         }

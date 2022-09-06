@@ -1,20 +1,17 @@
 package com.example.calculatortz.Calculate
 
-import androidx.lifecycle.ViewModel
-import com.example.calculatortz.GetResult
-
-class Calculator : ViewModel() {
+class Calculator {
 
     private val operatorTokenizer = OperatorTokenizer()
-    private val toRPN = ToRPN()
+    private val toPolishEntry = ToPolishEntry()
     private val getResult = GetResult()
 
     fun calculate(expression: String): Int? {
         return try {
             val tokens = operatorTokenizer.teg(expression)
-            val listRPN = toRPN.reversePolishEntry(tokens)
+            val listPolishEntry = toPolishEntry.reversePolishEntry(tokens)
 
-            getResult.rPnToInt(listRPN)
+            getResult.polishEntryGetResult(listPolishEntry)
         } catch (exception: Exception) {
             null
         }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.calculatortz.Calculate.CalculatorViewModel
 import com.example.calculatortz.databinding.FragmentCalculatorBinding
 
 class FragmentCalculator : Fragment(R.layout.fragment_calculator) {
@@ -44,6 +45,7 @@ class FragmentCalculator : Fragment(R.layout.fragment_calculator) {
         calculatorViewModel.expression.observe(viewLifecycleOwner) { expression ->
             binding.expressionView.text = expression
         }
+
         calculatorViewModel.expressionResult.observe(viewLifecycleOwner) { expressionResult ->
             val resultExpression = expressionResult?.toString() ?: "Wrong expression"
             binding.resultExpressionView.text = resultExpression
@@ -59,7 +61,7 @@ class FragmentCalculator : Fragment(R.layout.fragment_calculator) {
     }
 
     private fun addSymbolTextView(symbol: String) {
-       calculatorViewModel.addSymbol(symbol)
+        calculatorViewModel.addSymbol(symbol)
     }
 
     companion object {
