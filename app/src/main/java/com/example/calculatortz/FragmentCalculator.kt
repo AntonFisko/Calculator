@@ -4,33 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.viewModels
 import androidx.fragment.app.Fragment
-import com.example.calculatortz.Calculate.Calculator
+import androidx.fragment.app.viewModels
 import com.example.calculatortz.databinding.FragmentCalculatorBinding
 
 class FragmentCalculator : Fragment(R.layout.fragment_calculator) {
 
-    private var _binding: FragmentCalculatorBinding? = null
+    private lateinit var binding: FragmentCalculatorBinding
 
-    private val binding
-        get() = _binding!!
-
-    private val calculatorViewModel: Calculator by viewModels()
+    private val calculatorViewModel: CalculatorViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCalculatorBinding.inflate(inflater, container, false)
+        binding = FragmentCalculatorBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         // лиснеры кнопок
         binding.buttonZero.setOnClickListener { addSymbolTextView("0") }
@@ -47,50 +41,30 @@ class FragmentCalculator : Fragment(R.layout.fragment_calculator) {
         binding.buttonPlus.setOnClickListener { addSymbolTextView("+") }
         binding.buttonShare.setOnClickListener { addSymbolTextView("/") }
         binding.buttonMultiply.setOnClickListener { addSymbolTextView("*") }
-        binding.textView2.setOnClickListener {
-            if (binding.textView2.text.isNotEmpty())
-                binding.textView.text = binding.textView2.text
-            binding.textView2.text = ""
+        calculatorViewModel.expression.observe(viewLifecycleOwner) { expression ->
+            binding.expressionView.text = expression
+        }
+        calculatorViewModel.expressionResult.observe(viewLifecycleOwner) { expressionResult ->
+            val resultExpression = expressionResult?.toString() ?: "Wrong expression"
+            binding.resultExpressionView.text = resultExpression
         }
 
-        //удаление и очистка элеменовов
         binding.buttonRemoval.setOnClickListener {
-            val str = binding.textView.text
-            if (str.isNotEmpty())
-                binding.textView.text = str.substring(0, str.length - 1)
+            calculatorViewModel.removeLastSymbol()
         }
 
         binding.buttonClear.setOnClickListener {
-            binding.textView.text = ""
-            binding.textView2.text = ""
+            calculatorViewModel.clearExpression()
         }
-
-        //нажатие на равно
-        binding.buttonEqually.setOnClickListener {
-            val text = binding.textView.text.toString()
-
-            val result = calculatorViewModel.calculate(text)
-            binding.textView2.text = result.toString()
-            binding.textView.text = ""
-
-        }
-
     }
 
-    private fun addSymbolTextView(src: String) {
-        binding.textView.append(src)
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun addSymbolTextView(symbol: String) {
+       calculatorViewModel.addSymbol(symbol)
     }
 
     companion object {
         fun newInstance(): FragmentCalculator {
-            return FragmentCalculator().withArguments {//можно положить информацию
-            }
+            return FragmentCalculator()
         }
     }
 }

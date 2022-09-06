@@ -1,7 +1,5 @@
 package com.example.calculatortz
 
-import androidx.lifecycle.ViewModel
-import com.example.calculatortz.Calculate.Variables
 import java.util.*
 
 

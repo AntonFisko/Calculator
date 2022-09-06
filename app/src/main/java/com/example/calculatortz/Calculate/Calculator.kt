@@ -6,15 +6,17 @@ import com.example.calculatortz.GetResult
 class Calculator : ViewModel() {
 
     private val operatorTokenizer = OperatorTokenizer()
+    private val toRPN = ToRPN()
+    private val getResult = GetResult()
 
-    fun calculate(expression: String): Int {
+    fun calculate(expression: String): Int? {
+        return try {
+            val tokens = operatorTokenizer.teg(expression)
+            val listRPN = toRPN.reversePolishEntry(tokens)
 
-        val tokens = operatorTokenizer.teg(expression)
-
-        val toRPN = ToRPN()
-        val listRPN = toRPN.reversePolishEntry(tokens)
-
-        val rPNtoInt = GetResult()
-        return rPNtoInt.rPnToInt(listRPN)
+            getResult.rPnToInt(listRPN)
+        } catch (exception: Exception) {
+            null
+        }
     }
 }
