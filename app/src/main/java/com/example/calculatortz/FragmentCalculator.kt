@@ -7,15 +7,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.fragment.app.Fragment
+import com.example.calculatortz.Calculate.Calculator
 import com.example.calculatortz.databinding.FragmentCalculatorBinding
 
 class FragmentCalculator : Fragment(R.layout.fragment_calculator) {
 
     private var _binding: FragmentCalculatorBinding? = null
+
     private val binding
         get() = _binding!!
 
-    private val calculatorViewModel: CalculatorViewModel by viewModels()
+    private val calculatorViewModel: Calculator by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +45,6 @@ class FragmentCalculator : Fragment(R.layout.fragment_calculator) {
         binding.buttonNine.setOnClickListener { addSymbolTextView("9") }
         binding.buttonMinus.setOnClickListener { addSymbolTextView("-") }
         binding.buttonPlus.setOnClickListener { addSymbolTextView("+") }
-        binding.floatingComma.setOnClickListener { addSymbolTextView(",") }
         binding.buttonShare.setOnClickListener { addSymbolTextView("/") }
         binding.buttonMultiply.setOnClickListener { addSymbolTextView("*") }
         binding.textView2.setOnClickListener {
@@ -59,14 +60,16 @@ class FragmentCalculator : Fragment(R.layout.fragment_calculator) {
                 binding.textView.text = str.substring(0, str.length - 1)
         }
 
-        binding.buttonClear.setOnClickListener { binding.textView.text = "" }
+        binding.buttonClear.setOnClickListener {
+            binding.textView.text = ""
+            binding.textView2.text = ""
+        }
 
         //нажатие на равно
         binding.buttonEqually.setOnClickListener {
-            val text = binding.textView.text
+            val text = binding.textView.text.toString()
 
-            var result = calculatorViewModel.calculate(text.toString())
-
+            val result = calculatorViewModel.calculate(text)
             binding.textView2.text = result.toString()
             binding.textView.text = ""
 
