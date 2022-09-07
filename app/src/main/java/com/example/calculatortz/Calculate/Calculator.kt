@@ -3,8 +3,8 @@ package com.example.calculatortz.Calculate
 class Calculator {
 
     private val operatorTokenizer = OperatorTokenizer()
-    private val toPolishEntry = ToPolishEntry()
-    private val getResult = GetResult()
+    private val toPolishEntry = TokensToPolishEntry()
+    private val getResult = GetResultPolishEntry()
 
     fun calculate(expression: String): Int? {
         return try {

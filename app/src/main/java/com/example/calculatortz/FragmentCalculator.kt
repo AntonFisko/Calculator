@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.calculatortz.Calculate.CalculatorViewModel
-import com.example.calculatortz.databinding.FragmentCalculatorBinding
+import com.example.calculatortz.databinding.FragmentCalculateConstrBinding
 
-class FragmentCalculator : Fragment(R.layout.fragment_calculator) {
 
-    private lateinit var binding: FragmentCalculatorBinding
+class FragmentCalculator : Fragment(R.layout.fragment_calculate_constr) {
+
+    private lateinit var binding: FragmentCalculateConstrBinding
 
     private val calculatorViewModel: CalculatorViewModel by viewModels()
 
@@ -20,14 +21,14 @@ class FragmentCalculator : Fragment(R.layout.fragment_calculator) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCalculatorBinding.inflate(inflater, container, false)
+        binding = FragmentCalculateConstrBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // лиснеры кнопок
+        // OnClickListener Button
         binding.buttonZero.setOnClickListener { addSymbolTextView("0") }
         binding.buttonOne.setOnClickListener { addSymbolTextView("1") }
         binding.buttonTwo.setOnClickListener { addSymbolTextView("2") }
@@ -42,6 +43,7 @@ class FragmentCalculator : Fragment(R.layout.fragment_calculator) {
         binding.buttonPlus.setOnClickListener { addSymbolTextView("+") }
         binding.buttonShare.setOnClickListener { addSymbolTextView("/") }
         binding.buttonMultiply.setOnClickListener { addSymbolTextView("*") }
+
         calculatorViewModel.expression.observe(viewLifecycleOwner) { expression ->
             binding.expressionView.text = expression
         }

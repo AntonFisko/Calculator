@@ -53,4 +53,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$viewModelBuildVersion"
     implementation "androidx.lifecycle:lifecycle-common-java8:$viewModelBuildVersion"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$viewModelBuildVersion"
+
+    // Preferences DataStore (SharedPreferences like APIs
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }

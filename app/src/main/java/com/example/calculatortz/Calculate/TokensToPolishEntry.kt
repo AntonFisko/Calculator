@@ -2,7 +2,8 @@ package com.example.calculatortz.Calculate
 
 import java.util.*
 
-class ToPolishEntry {
+class TokensToPolishEntry {
+
     fun reversePolishEntry(tokens: List<Variables>): List<Variables> {
 
         val stack = Stack<Variables>()

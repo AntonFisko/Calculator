@@ -2,7 +2,7 @@ package com.example.calculatortz.Calculate
 
 import java.util.*
 
-class GetResult {
+class GetResultPolishEntry {
     fun polishEntryGetResult(tokens: List<Variables>): Int {
 
         val stack = Stack<Variables.CalcNumber>()
